@@ -13,7 +13,18 @@ int main() {
 
     string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
 
+    map<char, int> letterFrequency;
 
-    
+    for (char c : alphabet) {
+        letterFrequency[c] = 0;
+    }
+
+    for (char c : paragraph) {
+        letterFrequency[toupper(c)]  ++;
+    }
+
+    for (char c : alphabet) {
+        cout << "Letter " << c << " appears " << letterFrequency[c] << " times " << endl;
+    }
 
 }

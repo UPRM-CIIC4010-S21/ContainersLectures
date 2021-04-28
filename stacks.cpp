@@ -21,12 +21,12 @@ TokenType tokenType(string s) {
     }
 }
 
-double apply (string operand, double v1, double v2)
+double apply (string op, double v1, double v2)
 {
-    if (operand == "+") return (v1 + v2);
-    if (operand == "-") return (v1 - v2);
-    if (operand == "*") return (v1 * v2);
-    if (operand == "/") return (v1 / v2);
+    if (op == "+") return (v1 + v2);
+    if (op == "-") return (v1 - v2);
+    if (op == "*") return (v1 * v2);
+    if (op == "/") return (v1 / v2);
     return 0.0;  // Just to avoid no-return warning
 }
 
@@ -48,9 +48,23 @@ vector<string> tokenize(string expression)
 
 double eval(vector<string> expression)
 {
+    stack<double> s;
 
-    
+    for (string nextToken : expression) {
 
+        switch(tokenType(nextToken)) {
+
+        case OPERAND:  s.push(stod(nextToken));
+                       break;
+        case OPERATOR: double op1 = s.top();
+                       s.pop();
+                       double op2 = s.top();
+                       s.pop();
+                       s.push(apply(nextToken, op1, op2));
+                       break;
+        }
+    }
+    return s.top();
 }
 
 
